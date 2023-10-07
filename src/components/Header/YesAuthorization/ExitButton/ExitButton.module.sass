@@ -1,0 +1,13 @@
+@import ../../../../styles/common
+
+.link
+  +theme(color, text)
+
+  & + &
+    margin-left: 8px
+
+  &:visited
+    +theme(color, text)
+
+  &.active
+    +theme(color, mainOrange)

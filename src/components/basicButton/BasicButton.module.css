@@ -1,0 +1,80 @@
+.root {
+    --background-color-light: #54b8cd;
+    --border-color-light: #54b8cd;
+    --color-light: #fff;
+    --background-color__hover-light: #4995aa;
+    --background-color-dark: #fff;
+    --border-color-dark: lightgrey;
+    --color-dark: #000;
+    --background-color__hover-dark: grey;
+}
+.button {
+
+    font-weight: 600;
+    letter-spacing: 0;
+    text-decoration: none;
+    text-align: center;
+    position: relative;
+    /*display: inline-block;*/
+    vertical-align: middle;
+    border-radius: 8px;
+    cursor: pointer;
+
+    font-size: 16px;
+    /*line-height: 22px;*/
+    padding: 8px 24px 10px;
+    font-size: 14px;
+    /*line-height: 20px;*/
+
+    margin-right: auto;
+}
+.button[data-theme='dark'] {
+    /*background-color: var(--background-color-dark);*/
+    /*border-color: var(--border-color-dark);*/
+    /*color: var(--color-dark);*/
+    background-color: #fff;
+    border-color: lightgrey;
+    color: #000;
+}
+
+.button[data-theme='light'] {
+    /*background-color: var(--background-color-light);*/
+    /*border-color: var(--border-color-light);*/
+    /*color: var(--color-light);*/
+    background-color: #54b8cd;
+    border-color: #54b8cd;
+    color: #fff;
+}
+.button[data-theme='light']:hover {
+
+    background-color: #4995aa;
+    border: 2px solid #4995aa;
+}
+
+.button[data-theme='dark']:hover {
+
+    background-color: grey;
+    border: 2px solid grey;
+}
+.button__div {
+    display: table-cell;
+    vertical-align: middle;
+    horiz-align: right;
+    margin-right: auto;
+}
+
+.button__disabled[data-theme='light'] {
+    background-color: #6595aa;
+    border: 2px solid #6595aa;
+}
+.button__disabled[data-theme='dark'] {
+    background-color: lightgrey;
+    border: 2px solid grey;
+}
+.in-basket__left-button {
+    border-radius: 8px 0px 0px 8px;
+}
+
+.in-basket__right-button {
+    border-radius: 0px 8px 8px 0px;
+}
