@@ -15,7 +15,7 @@ export const getClassName: NavLinkProps['className'] = ({ isActive }) => cn(s.li
 
 const TopMenu = ({ children }: TopMenuProps) => {
   const { t } = useTranslation();
-  const token = localStorage.getItem('accessToken');
+    const isSingIn = useSelector<RootState, boolean>((state) => state.initSlice.isSignIn);
   // const isAdmin = useSelector<RootState, boolean>((state) => state.profile.isAdmin);
   return (
     <div className={s.menu}>
@@ -27,12 +27,12 @@ const TopMenu = ({ children }: TopMenuProps) => {
         {t`StoreScreenTitle`}
       </NavLink>
 
-      {token && (
+      {isSingIn && (
           <NavLink className={getClassName} to="/category">
               Категории приходов/расходов
           </NavLink>
       )}
-      {token && (
+      {isSingIn && (
         <NavLink className={getClassName} to="/profile">
           {t`ProfileScreenTitle`}
         </NavLink>

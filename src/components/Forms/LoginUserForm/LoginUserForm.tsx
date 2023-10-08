@@ -48,6 +48,7 @@ export const LoginUserForm: FC<LoginUserFormProps> = ({ registration }) => {
     <>
       <form onSubmit={handleSubmit(clickSubmit)}>
         <div className="text-field">
+
           <label className="text-field__label">Email*</label>
           <input
             className="text-field__input"
@@ -71,8 +72,8 @@ export const LoginUserForm: FC<LoginUserFormProps> = ({ registration }) => {
             {...register('password', {
               required: 'Поле обязательно для заполнения',
               minLength: {
-                value: 10,
-                message: 'Пароль должен содержать не менее 10 символов',
+                value: 8,
+                message: 'Пароль должен содержать не менее 8 символов',
               },
               pattern: {
                 value: /^\w+$/,

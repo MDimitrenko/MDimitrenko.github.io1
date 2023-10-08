@@ -152,7 +152,7 @@ export const fetchChangePasswordProfile = createAsyncThunk<void, ChangePasswordB
         headers: getHeader(),
         body: JSON.stringify(params),
       };
-      fetch('http://19429ba06ff2.vps.myjino.ru/api/change-password', requestOptions)
+      fetch('http://19429ba06ff2.vps.myjino.ru/api/profile/change-password', requestOptions)
         .then(async (response) => {
           if (response.ok) {
             const data = (await response.json()) as ChangePasswordResult;

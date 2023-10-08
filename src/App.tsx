@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import { useTranslation } from 'react-i18next';
-import { ThemeProvider } from './theming';
 import { Navigation } from './navigation';
 import Theme from "./components/theme/Theme";
+import  './styles/style.module.css';
 
 function App() {
   const { t } = useTranslation();

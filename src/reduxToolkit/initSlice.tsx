@@ -9,7 +9,7 @@ export interface StateProps {
   editPassword: boolean;
 }
 const initialState: StateProps = {
-  isSignIn: false,
+  isSignIn: !!localStorage.getItem('accessToken'),
   profile: {
     name: null,
     email: null,

@@ -1,6 +1,5 @@
 import { LoginUserForm } from './LoginUserForm';
 
-
 export default {
   component: LoginUserForm,
   title: 'LoginUserForm',
@@ -9,12 +8,12 @@ export default {
 
 export const LoginUserFormInput = {
   args: {
-    registration: false
+    registration: false,
   },
 };
 
 export const LoginUserFormReg = {
   args: {
-    registration: true
+    registration: true,
   },
 };

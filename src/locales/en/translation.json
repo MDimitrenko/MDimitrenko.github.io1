@@ -52,12 +52,14 @@
     "updateProfile": {
       "title": "Change profile",
       "success": "Profile changed successfully",
-      "save": "Save"
+      "save": "Save",
+      "edit": "Edit"
     },
     "changePassword": {
       "title": "Change password",
       "success": "Password changed successfully",
-      "save": "Change"
+      "save": "Save",
+      "edit": "Edit"
     }
   },
   "ChangePasswordForm": {

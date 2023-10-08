@@ -1,69 +1,87 @@
-import React, { useEffect } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import s from './ChangeProfileForm.module.sass';
+import '../../../style.css';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../reduxToolkit/store';
-import { Operation, Profile } from '../../../reduxToolkit/app.types';
+import { Operation, Profile, UpdateProfileBody } from '../../../reduxToolkit/app.types';
+// eslint-disable-next-line import/named
 import { ThunkDispatch } from 'redux-thunk';
+// eslint-disable-next-line import/named
 import { AnyAction } from '@reduxjs/toolkit';
-import { fetchGetProfile } from 'src/reduxToolkit/authThunk';
+import { fetchChangeProfile, fetchGetProfile } from '../../../reduxToolkit/authThunk';
+import { VerificationInput } from '../../VerificationInput/VerificationInput';
+import { WideButton } from '../../WideButton/WideButton';
 
 interface СhangeProfileFormProps {
   name: string;
-  about: string;
 }
 
 const ChangeProfileForm = () => {
   const { t } = useTranslation();
   const er = t`is_required`;
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<СhangeProfileFormProps>({ mode: 'onBlur' });
-
-  const onСhangePassword: SubmitHandler<СhangeProfileFormProps> = (value): void => {
-    reset();
-  };
   const profile = useSelector<RootState, Profile>((state) => state.initSlice.profile);
+  console.log(profile);
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<СhangeProfileFormProps>({
+    mode: 'onBlur',
+    defaultValues: {
+      name: profile?.name,
+    },
+  });
+
+  const onСhangeProfile: SubmitHandler<СhangeProfileFormProps> = (value): void => {
+    console.log(editProfile);
+    setEditProfile(!editProfile);
+    console.log(value);
+    if (editProfile) {
+      const updateProfileBody: UpdateProfileBody = {
+        name: value.name,
+      };
+      dispatch(fetchChangeProfile(updateProfileBody));
+    }
+  };
+  const [editProfile, setEditProfile] = useState(false);
   type AppDispatch = ThunkDispatch<Operation, any, AnyAction>;
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchGetProfile());
-  });
+  }, []);
 
   return (
-    <form className={s.form} onSubmit={handleSubmit(onСhangePassword)}>
+    <form className={s.form} onSubmit={handleSubmit(onСhangeProfile)}>
       <div className={s.title}>{t`ProfileScreen.updateProfile.title`}</div>
-      <div className={s.field}>
-        <label className={s.label}>{t`ProfileForm.name.title`}</label>
-        <input
-          value={profile.name}
-          className={s.input_pass}
-          name="name"
-          type="text"
-          placeholder={t`ProfileForm.name.placeholder`}
-          {...register('name', { required: er })}
-        />
-        <label className={s.error_label}>{errors.name?.message}</label>
-      </div>
-      <div className={s.field}>
-        <label className={s.label}>{t`ProfileForm.about.title`}</label>
-        <input
-          value={profile.email}
-          className={s.input_pass}
-          name="about"
-          type="text"
-          placeholder={t`ProfileForm.about.placeholder`}
-          {...register('about')}
-        />
-        <label className={s.error_label}>{errors.about?.message}</label>
-      </div>
-      <button className={s.button_send} type="submit">
-        {t`ProfileScreen.updateProfile.save`}
-      </button>
+      <Controller
+        control={control}
+        name="name"
+        rules={editProfile ? { required: er } : undefined}
+        render={({ field }) => (
+          <VerificationInput
+            disabled={!editProfile}
+            onChange={(date) => {
+              console.log(date.target.value);
+              field.onChange(date.target.value);
+            }}
+            title={t`ProfileForm.name.title`}
+            inputValue={profile.name}
+            placeholder={t`ProfileForm.name.placeholder`}
+            errorMessage={errors.name?.message}
+          />
+        )}
+      />
+
+      <VerificationInput
+        disabled={true}
+        title={t`ProfileForm.name.title`}
+        inputValue={profile?.email}
+        placeholder={t`ProfileForm.about.placeholder`}
+      />
+
+      <WideButton text={!editProfile ? t`ProfileScreen.updateProfile.edit` : t`ProfileScreen.updateProfile.save`} />
     </form>
   );
 };

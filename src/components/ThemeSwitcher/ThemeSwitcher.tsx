@@ -4,29 +4,31 @@ import cn from 'clsx';
 // import DarkModeIcon from './SunIcon.svg';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
-import { useThemeContext, Theme } from '../../theming';
+// eslint-disable-next-line import/no-unresolved
+
 import s from './ThemeSwitcher.module.sass';
-import {useTheme} from "src/components/theme/Theme";
+import { useTheme } from '../theme/Theme';
+import { Theme } from 'src/theming/types';
 
 export type ThemeSwitcherProps = {
   className?: string;
 };
 
 const icons = {
-  [Theme.light]: <DarkModeIcon />,
-  [Theme.dark]: <LightModeIcon />,
+  [Theme.green]: <DarkModeIcon />,
+  [Theme.blue]: <LightModeIcon />,
 };
-
 
 export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({ className }) => {
   const { theme, setTheme } = useTheme();
   const toggleTheme = () => {
-    if (theme === 'dark') {
-      setTheme('light');
+    console.log(theme)
+    if (theme === 'green') {
+      setTheme('blue');
     } else {
-      setTheme('dark');
+      setTheme('green');
     }
-  }
+  };
   return (
     <button type="button" className={cn(s.root, className)} onClick={toggleTheme}>
       {icons[theme]}

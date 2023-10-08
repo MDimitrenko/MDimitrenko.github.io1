@@ -1,69 +1,65 @@
-import React, {useEffect, createContext, useState, useContext, FC} from 'react';
-
-import Styles from './index.module.css';
+import React, { useEffect, createContext, useState, useContext, FC } from 'react';
 
 const StorageKey = 'features-color-theme';
 const supportedThemes = {
-    light: 'light',
-    dark: 'dark',
+  green: 'green',
+  blue: 'blue',
 };
 
 type Themes = keyof typeof supportedThemes;
 
 const ThemeContext = createContext<
-    | {
-    theme: Themes;
-    setTheme: (theme: Themes) => void;
-    supportedThemes: { [key: string]: string };
-}
-    | undefined
-    >(undefined);
+  | {
+      theme: Themes;
+      setTheme: (theme: Themes) => void;
+      supportedThemes: { [key: string]: string };
+    }
+  | undefined
+>(undefined);
 
 const useTheme = () => {
-    const context = useContext(ThemeContext);
+  const context = useContext(ThemeContext);
 
-    if (!context) {
-        throw new Error(
-            'You can use "useTheme" hook only within a <ThemeProvider> component.'
-        );
-    }
+  if (!context) {
+    throw new Error('You can use "useTheme" hook only within a <ThemeProvider> component.');
+  }
 
-    return context;
+  return context;
 };
 
 const getTheme = (): Themes => {
-    let theme = localStorage.getItem(StorageKey);
+  let theme = localStorage.getItem(StorageKey);
 
-    if (!theme) {
-        localStorage.setItem(StorageKey, 'light');
-        theme = 'light';
-    }
+  if (!theme) {
+    localStorage.setItem(StorageKey, 'green');
+    theme = 'blue';
+  }
 
-    return theme as Themes;
+  return theme as Themes;
 };
 
 interface ThemeProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
-const Theme: FC<ThemeProps> = ({children  }) => {
-    const [theme, setTheme] = useState<Themes>(getTheme);
+const Theme: FC<ThemeProps> = ({ children }) => {
+  const [theme, setTheme] = useState<Themes>(getTheme);
 
-    useEffect(() => {
-        localStorage.setItem(StorageKey, theme);
-        document.documentElement.setAttribute('data-theme', theme);
-    }, [theme]);
+  useEffect(() => {
+    localStorage.setItem(StorageKey, theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
-    return (
-        <ThemeContext.Provider
-            value={{
-                theme,
-                setTheme,
-                supportedThemes,
-            }}
-        >
-            {children}
-        </ThemeContext.Provider>
-    );
+  return (
+    <ThemeContext.Provider
+      value={{
+        theme,
+        setTheme,
+        supportedThemes,
+      }}
+    >
+      {children}
+    </ThemeContext.Provider>
+  );
 };
 
 // Theme.SimpleToggler = function SimpleToggler() {

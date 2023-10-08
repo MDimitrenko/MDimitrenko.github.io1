@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import './FilterForm.css';
+import style from './FilterForm.module.sass';
 import { useDispatch } from 'react-redux';
 // eslint-disable-next-line import/named
 import { ThunkDispatch } from 'redux-thunk';
@@ -12,6 +12,7 @@ import { Select } from 'antd';
 import Checkbox from '../../Checkbox/Checkbox';
 import {setFilter} from "src/reduxToolkit/filterSlice";
 import {clearOperations, setUploadPage} from "src/reduxToolkit/operationSlice";
+import {BasicButton} from "src/components/basicButton/BasicButton";
 
 // eslint-disable-next-line react/prop-types
 export const FilterForm: FC = () => {
@@ -66,10 +67,10 @@ export const FilterForm: FC = () => {
   const selectedStartDate = watch('checkStartDate');
   const selectedEndDate = watch('checkEndDate');
   return (
-    <>
+    <div style={{width: "350px"}}>
       <form onSubmit={handleSubmit(clickSubmit)}>
-        <div className="filter-form">
-          <label className="filter-form__text-field__label">Тип операции</label>
+        <div className={style.filter_form}>
+          <label className={style.filter_form__text_field__label}>Тип операции</label>
           <Controller
             control={control}
             name="operationType"
@@ -77,7 +78,7 @@ export const FilterForm: FC = () => {
               <Select
                 onChange={(date) => field.onChange(date)}
                 defaultValue="Все операции"
-                className="filter-form__select"
+                className={style.filter_form__select}
               >
                 <Select.Option key={1} value="Все операции">
                   Все операции
@@ -133,11 +134,10 @@ export const FilterForm: FC = () => {
             )}
           />
 
-          <button type="submit" className="button-add">
-            Применить фильтр
-          </button>
+          <BasicButton type="submit" text='Применить фильтр' className={style.button_width}/>
+
         </div>
       </form>
-    </>
+    </div>
   );
 };

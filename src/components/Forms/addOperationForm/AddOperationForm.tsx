@@ -62,7 +62,7 @@ export const AddOperationForm: FC = () => {
     amount: number;
     date: Date;
   }
-   const addOperation: SubmitHandler<FormValues> = (value): void => {
+  const addOperation: SubmitHandler<FormValues> = (value): void => {
     if (!categoryId) {
       return;
     }
@@ -71,7 +71,7 @@ export const AddOperationForm: FC = () => {
       return;
     }
     if (operation) {
-      console.log("kkkk")
+      console.log('kkkk');
       console.log(value.date);
       const newOperation: NewOperation = {
         id: operation.id,
@@ -85,7 +85,7 @@ export const AddOperationForm: FC = () => {
 
       dispatch(fetchUpdateOperation(newOperation));
     } else {
-      console.log(value.date)
+      console.log(value.date);
       const newOperation: NewOperation = {
         name: value.name,
         desc: value.desc,
@@ -132,7 +132,7 @@ export const AddOperationForm: FC = () => {
           <CategorySelect
             items={categories}
             onChange={(value) => setCategoryId(value)}
-            selectCategory={operation ? operation.category: null}
+            selectCategory={operation ? operation.category : null}
           />
           {/*<label className="text-field__error-label">{errors.name?.message}</label>*/}
 
@@ -176,6 +176,7 @@ export const AddOperationForm: FC = () => {
           <Controller
             control={control}
             name="date"
+
             render={({ field }) => (
               <DatePickerBox
                 name="isinDate"

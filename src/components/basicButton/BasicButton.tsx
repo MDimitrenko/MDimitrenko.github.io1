@@ -4,7 +4,7 @@ import cn from 'clsx';
 import { useDispatch } from 'react-redux';
 import { useTheme } from '../../components/theme/Theme';
 
-interface BasicButtonProps {
+export interface BasicButtonProps {
   type?: string;
   disabled?: boolean;
   text: string;
@@ -15,7 +15,6 @@ interface BasicButtonProps {
 export const BasicButton: FC<BasicButtonProps> = ({
   text,
   className = '',
-
   onClick,
   type = '',
   disabled = false,
@@ -23,11 +22,12 @@ export const BasicButton: FC<BasicButtonProps> = ({
   const dispatch = useDispatch();
 
   const theme = useTheme();
-  console.log(type === 'right');
+  console.log(theme.theme);
   return (
     <div className={style.button__div}>
       <button
         className={cn(
+            className,
           style.button,
           disabled && style.button__disabled,
           type === 'left' && style.inBasket__leftButton,
