@@ -7,7 +7,7 @@ const supportedThemes = {
 };
 
 type Themes = keyof typeof supportedThemes;
-
+console.log('ddd');
 const ThemeContext = createContext<
   | {
       theme: Themes;

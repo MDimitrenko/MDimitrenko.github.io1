@@ -17,6 +17,8 @@ export const OperationListScreen: FC = () => {
   const dispatch = useDispatch();
 
   const openMessage = useSelector<RootState, boolean>((state) => state.operationSlice.openAddOperation);
+  const isSingIn = useSelector<RootState, boolean>((state) => state.initSlice.isSignIn);
+
   const onClick = () => {
     dispatch(setOpenAddOperation(true));
   };
@@ -26,7 +28,7 @@ export const OperationListScreen: FC = () => {
         <FilterForm />
         <div style={{ flexGrow: 1 }}>
           <div style={{ display: 'block', marginRight: '50px' }}>
-            <img src={require(`../../images/icons8-plus-48.png`)} onClick={onClick} />
+            {isSingIn && <img src={require(`../../images/icons8-plus-48.png`)} onClick={onClick} />}
 
             {/*<button type="button" className={s.productImage__img} onClick={onClick}>*/}
             {/*  <img src={require(`../../images/icons8-plus-48.png`)} />*/}

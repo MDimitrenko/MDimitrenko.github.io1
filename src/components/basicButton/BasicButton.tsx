@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import style from './BasicButton.module.css';
 import cn from 'clsx';
-import { useDispatch } from 'react-redux';
 import { useTheme } from '../../components/theme/Theme';
 
 export interface BasicButtonProps {
@@ -19,7 +18,6 @@ export const BasicButton: FC<BasicButtonProps> = ({
   type = '',
   disabled = false,
 }) => {
-  const dispatch = useDispatch();
 
   const theme = useTheme();
   console.log(theme.theme);

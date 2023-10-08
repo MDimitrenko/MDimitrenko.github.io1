@@ -59,8 +59,8 @@
 .button__div {
     display: table-cell;
     vertical-align: middle;
-    horiz-align: right;
-    margin-right: auto;
+    /*horiz-align: right;*/
+    /*margin-right: auto;*/
 }
 
 .button__disabled[data-theme='blue'] {

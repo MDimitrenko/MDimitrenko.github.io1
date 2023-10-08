@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import s from './СhangePasswordForm.module.sass';
+import s from './ChangePasswordForm.module.sass';
 import { useTranslation } from 'react-i18next';
 import { VerificationInput } from 'src/components/VerificationInput/VerificationInput';
 import { WideButton } from 'src/components/WideButton/WideButton';

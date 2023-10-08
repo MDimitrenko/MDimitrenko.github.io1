@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Operation } from '../../reduxToolkit/app.types';
 // eslint-disable-next-line import/named
 import { ThunkDispatch } from 'redux-thunk';
@@ -8,6 +8,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from '@reduxjs/toolkit';
 import { fetchDeleteOperation } from '../../reduxToolkit/operationThunk';
 import { setEditOperation, setOpenAddOperation } from '../../reduxToolkit/operationSlice';
+import { RootState } from 'src/reduxToolkit/store';
 
 const ItemContainer = styled.div`
   display: flex;
@@ -68,6 +69,8 @@ interface CartItemProps {
 }
 
 const CartItem: React.FC<CartItemProps> = ({ operation }) => {
+  const isSingIn = useSelector<RootState, boolean>((state) => state.initSlice.isSignIn);
+
   type AppDispatch = ThunkDispatch<string, any, AnyAction>;
   const dispatch: AppDispatch = useDispatch();
   const onDelete = () => {
@@ -82,16 +85,16 @@ const CartItem: React.FC<CartItemProps> = ({ operation }) => {
   // console.log(isoFormatDate);
 
   const stringDate = isoFormatDate
-    ? ('0' + (isoFormatDate.getDate()+1)).slice(-2) +
+    ? ('0' + (isoFormatDate.getDate() + 1)).slice(-2) +
       '-' +
-      ('0' + (isoFormatDate.getMonth()+1)).slice(-2) +
+      ('0' + (isoFormatDate.getMonth() + 1)).slice(-2) +
       '-' +
       isoFormatDate.getFullYear() +
       ' ' +
       ('0' + isoFormatDate.getHours()).slice(-2) +
       ':' +
       ('0' + isoFormatDate.getMinutes()).slice(-2)
-    : null
+    : null;
   // console.log(stringDate)
   return (
     <ItemContainer>
@@ -110,10 +113,12 @@ const CartItem: React.FC<CartItemProps> = ({ operation }) => {
             <ItemDescription>{operation.desc}</ItemDescription>
             {/*<ItemPrice>${price}</ItemPrice>*/}
           </div>
-          <div>
-            <img src={require(`../../images/free-icon-edit.png`)} onClick={onEdit} />
-            <img src={require(`../../images/free-icon-dustbin.png`)} onClick={onDelete} />
-          </div>
+          {isSingIn && (
+            <div>
+              <img src={require(`../../images/free-icon-edit.png`)} onClick={onEdit} />
+              <img src={require(`../../images/free-icon-dustbin.png`)} onClick={onDelete} />
+            </div>
+          )}
         </ItemFooter>
       </ItemContent>
     </ItemContainer>
