@@ -71,10 +71,10 @@
     background-color: #5C8804;
     border: 2px solid #5C8804;
 }
-.in-basket__left-button {
+.in_basket__left_button {
     border-radius: 8px 0px 0px 8px;
 }
 
-.in-basket__right-button {
+.in_basket__right_button {
     border-radius: 0px 8px 8px 0px;
 }

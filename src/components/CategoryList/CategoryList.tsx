@@ -8,7 +8,7 @@ import { ThunkDispatch } from 'redux-thunk';
 // eslint-disable-next-line import/named
 import { AnyAction } from '@reduxjs/toolkit';
 import { fetchGetCategories } from '../../reduxToolkit/categoryThunk';
-import CategoryItem from '../../components/categoryItem/categoryItem';
+import CategoryItem from '../CategoryItem/CategoryItem';
 
 export const CategoryList: FC = () => {
   type AppDispatch = ThunkDispatch<Operation, any, AnyAction>;

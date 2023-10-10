@@ -72,31 +72,6 @@
     border: 2px solid #4995aa;
 }
 
-.button-delete {
-    background-color: #54b8cd;
-    border-color: #54b8cd;
-    font-weight: 600;
-    /*letter-spacing: 0;*/
-    /*text-decoration: none;*/
-    text-align: center;
-    /*position: relative;*/
-    /*display: inline-block;*/
-    vertical-align: middle;
-    border-radius: 4px;
-    cursor: pointer;
-    color: #fff;
-    font-size: 8px;
-    /*line-height: 22px;*/
-    /*padding: 8px 24px 10px;*/
-    /*/*line-height: 20px;*/
-    /*margin-top: 1rem;*/
-    /*margin-right: auto;*/
-}
-.button-delete:hover {
-    background-color: #4995aa;
-    border: 2px solid #4995aa;
-}
-
 .button__disabled {
     background-color: #6595aa;
     border: 2px solid #6595aa;

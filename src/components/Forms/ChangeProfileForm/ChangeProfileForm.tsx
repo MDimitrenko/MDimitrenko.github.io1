@@ -70,7 +70,7 @@ const ChangeProfileForm = () => {
               field.onChange(date.target.value);
             }}
             title={t`ProfileForm.name.title`}
-            inputValue={profile.name}
+            inputValue={profile?.name}
             placeholder={t`ProfileForm.name.placeholder`}
             errorMessage={errors.name?.message}
           />

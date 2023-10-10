@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import './AddCategoryForm.css';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import s from './AddCategoryForm.module.sass';
 
 import { useTranslation } from 'react-i18next';
 import { Category, NewCategory, Operation } from '../../../reduxToolkit/app.types';
@@ -14,10 +14,9 @@ import { ThunkDispatch } from 'redux-thunk';
 // eslint-disable-next-line import/named
 import { AnyAction } from '@reduxjs/toolkit';
 import { BasicButton } from 'src/components/basicButton/BasicButton';
-import {useTheme} from "src/components/theme/Theme";
-// interface AddCategoryFormProps {
-//   category?: Category;
-// }
+import { useTheme } from 'src/components/theme/Theme';
+import { VerificationInput } from 'src/components/VerificationInput/VerificationInput';
+
 // eslint-disable-next-line react/prop-types
 export const AddCategoryForm: FC = () => {
   type AppDispatch = ThunkDispatch<Operation, any, AnyAction>;
@@ -25,17 +24,13 @@ export const AddCategoryForm: FC = () => {
 
   const dispatch: AppDispatch = useDispatch();
   const {
-    register,
     handleSubmit,
-    reset,
+    control,
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'onBlur',
     defaultValues: {
       name: category ? category.name : undefined,
-
-      // createdAt: createdAt,
-      // updatedAt: updatedAt,
     },
   });
 
@@ -60,7 +55,7 @@ export const AddCategoryForm: FC = () => {
       dispatch(fetchAddCategoryWithImage(newCategory));
     }
     dispatch(setOpenAddCategory(false));
-    // reset();
+
   };
   const { t } = useTranslation();
 
@@ -81,48 +76,57 @@ export const AddCategoryForm: FC = () => {
     setUrl(undefined);
   };
   const theme = useTheme();
-  console.log(theme.theme)
+  console.log(theme.theme);
   return (
     <Modal>
       <form onSubmit={handleSubmit(addCategory)}>
-        <div className="text-field">
-          <label className="text-field__label">{t('is_required')}</label>
-          <input
-            className="text-field__input"
-            type="text"
-            placeholder={t('AddCategoryForm.name')}
-            {...register('name', { required: t('is_required') })}
-          />
-          <label className="text-field__error-label">{errors.name?.message}</label>
+        <Controller
+          control={control}
+          name="name"
+          rules={{ required: t`is_requred` }}
+          render={({ field }) => (
+            <VerificationInput
+              onChange={(date) => {
+                field.onChange(date.target.value);
+              }}
+              inputValue={category?.name}
+              title={t`AddCategoryForm.name`}
+              placeholder={t`AddCategoryForm.name`}
+              errorMessage={errors.name?.message}
+            />
+          )}
+        />
 
-          <div className="block">
-            {!selectFile && (
-              <>
-                <label className="text-field__label">{t('AddCategoryForm.addImages')}</label>
+        <div className={s.block}>
+          {!selectFile && (
+            <>
+              <label className={s.text_field__label}>{t('AddCategoryForm.addImages')}</label>
 
-                <label className="input-file" data-theme={theme.theme}>
-                  <input type="file" accept="image/png, image/jpeg" id="categoryPhoto" onChange={onChangeFile} />
-                  <span>{t('AddCategoryForm.selectFile')}</span>
-                </label>
-              </>
-            )}
-            {selectFile && (
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
-                {/*<label className="text-field__file-name">{file ? file.name : url} </label>*/}
-                {url && <img src={url} width="70px"></img>}
-                {file && <img src={URL.createObjectURL(file)} width="70px" />}
-                <BasicButton text="Х" className="button-delete" onClick={() => onClickDeleteFile()} />
-              </div>
-            )}
-          </div>
-          <div style={{ display: 'flex', alignContent: 'center', marginTop: '10px' }}>
-            <BasicButton
-              className="button-add-cat"
-              isSubmit={true}
-              text={category ? t('AddCategoryForm.change') : t('AddCategoryForm.add')}
-            ></BasicButton>
-            <BasicButton className="button-add-op" onClick={handleCloseModal} text={t('AddCategoryForm.cancel')}></BasicButton>
-          </div>
+              <label className={s.input_file} data-theme={theme.theme}>
+                <input type="file" accept="image/png, image/jpeg" id="categoryPhoto" onChange={onChangeFile} />
+                <span>{t('AddCategoryForm.selectFile')}</span>
+              </label>
+            </>
+          )}
+          {selectFile && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+              {url && <img src={url} width="70px"></img>}
+              {file && <img src={URL.createObjectURL(file)} width="70px" />}
+              <BasicButton text="Х" className={s.buttonDelete} onClick={() => onClickDeleteFile()} />
+            </div>
+          )}
+        </div>
+        <div style={{ display: 'flex', alignContent: 'center', marginTop: '10px' }}>
+          <BasicButton
+            className={s.button_add_cat}
+            isSubmit={true}
+            text={category ? t('AddCategoryForm.change') : t('AddCategoryForm.add')}
+          ></BasicButton>
+          <BasicButton
+            className={s.button_add_cat}
+            onClick={handleCloseModal}
+            text={t('AddCategoryForm.cancel')}
+          ></BasicButton>
         </div>
       </form>
     </Modal>

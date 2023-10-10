@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import cn from 'clsx';
-import s from './Frame.sass';
+import s from './Frame.module.sass';
 
 export type FrameProps = {
   className?: string;

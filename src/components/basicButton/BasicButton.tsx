@@ -21,7 +21,6 @@ export const BasicButton: FC<BasicButtonProps> = ({
   isSubmit = false,
 }) => {
   const theme = useTheme();
-  console.log(theme.theme);
   return (
     <div className={style.button__div}>
       <button
@@ -30,8 +29,8 @@ export const BasicButton: FC<BasicButtonProps> = ({
           className,
           style.button,
           disabled && style.button__disabled,
-          type === 'left' && style.inBasket__leftButton,
-          type === 'right' && style.inBasket__rightButton
+          type === 'left' && style.in_basket__left_button,
+          type === 'right' && style.in_basket__right_button
         )}
         onClick={onClick}
         data-theme={theme.theme}

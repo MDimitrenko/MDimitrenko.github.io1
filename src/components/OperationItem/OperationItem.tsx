@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { Operation } from '../../reduxToolkit/app.types';
 // eslint-disable-next-line import/named
@@ -9,68 +8,15 @@ import { AnyAction } from '@reduxjs/toolkit';
 import { fetchDeleteOperation } from '../../reduxToolkit/operationThunk';
 import { setEditOperation, setOpenAddOperation } from '../../reduxToolkit/operationSlice';
 import { RootState } from 'src/reduxToolkit/store';
-import {Image} from "src/components/Image/Image";
-import {useTheme} from "src/components/theme/Theme";
-
-const ItemContainer = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  margin-bottom: 8px;
-  font-family: system, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Segoe WP', Roboto, Ubuntu, Oxygen, Cantarell,
-    'Fira Sans', 'Helvetica Neue', Helvetica, 'Lucida Grande', 'Droid Sans', Tahoma, 'Microsoft Sans Serif', sans-serif;
-`;
-
-const ItemImage = styled.img`
-  width: 80px;
-  height: 80px;
-  border-radius: 8px;
-  margin-right: 16px;
-  object-fit: cover;
-`;
-
-const ItemContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-`;
-
-const ItemHeader = styled.div`
-  font-weight: bold;
-  margin-bottom: 8px;
-`;
-
-const ItemDescription = styled.div`
-  color: #888;
-  margin-bottom: 8px;
-`;
-
-const ItemFooter = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-`;
-
-const ItemPrice = styled.span`
-  font-weight: bold;
-  margin-left: auto;
-`;
-
-const DeleteButton = styled.button`
-  background-color: transparent;
-  border: none;
-  color: red;
-  cursor: pointer;
-  margin-top: 8px;
-`;
+import { Image } from 'src/components/Image/Image';
+import { useTheme } from 'src/components/theme/Theme';
+import style from './OperationItem.module.sass';
 
 interface CartItemProps {
   operation: Operation;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ operation }) => {
+const OperationItem: React.FC<CartItemProps> = ({ operation }) => {
   const isSingIn = useSelector<RootState, boolean>((state) => state.initSlice.isSignIn);
 
   type AppDispatch = ThunkDispatch<string, any, AnyAction>;
@@ -83,8 +29,6 @@ const CartItem: React.FC<CartItemProps> = ({ operation }) => {
     dispatch(setOpenAddOperation(true));
   };
   const isoFormatDate = operation.date ? new Date(Date.parse(operation.date)) : null;
-  // console.log(operation);
-  // console.log(isoFormatDate);
 
   const stringDate = isoFormatDate
     ? ('0' + (isoFormatDate.getDate() + 1)).slice(-2) +
@@ -97,24 +41,22 @@ const CartItem: React.FC<CartItemProps> = ({ operation }) => {
       ':' +
       ('0' + isoFormatDate.getMinutes()).slice(-2)
     : null;
-  // console.log(stringDate)
   const theme = useTheme();
   return (
-    <ItemContainer>
-      <ItemImage
+    <div className={style.container}>
+      <img
+        className={style.itemImage}
         src={operation.category?.photo || require(`../../images/wallet-${theme.theme}.png`)}
         title={operation.category?.name}
       />
-      <ItemContent>
-        <ItemHeader>
+      <div className={style.content}>
+        <div className={style.header}>
           {operation.type === 'Cost' ? '-' : '+'} {operation.amount} р, {operation.name}
-        </ItemHeader>
-        {/*<ItemHeader>{stringDate}</ItemHeader>*/}
-        <ItemFooter>
+        </div>
+        <div className={style.footer}>
           <div>
             {stringDate}
-            <ItemDescription>{operation.desc}</ItemDescription>
-            {/*<ItemPrice>${price}</ItemPrice>*/}
+            <div className={style.description}>{operation.desc}</div>
           </div>
           {isSingIn && (
             <div>
@@ -122,10 +64,10 @@ const CartItem: React.FC<CartItemProps> = ({ operation }) => {
               <Image fileName="delete" onClick={onDelete} />
             </div>
           )}
-        </ItemFooter>
-      </ItemContent>
-    </ItemContainer>
+        </div>
+      </div>
+    </div>
   );
 };
 
-export default CartItem;
+export default OperationItem;

@@ -6,7 +6,7 @@ import { RootState } from '../../reduxToolkit/store';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from '@reduxjs/toolkit';
 import { fetchGetOperation } from '../../reduxToolkit/operationThunk';
-import CartItem from '../../components/cartItem/cartItem';
+import OperationItem from '../OperationItem/OperationItem';
 import {fetchGetCategories} from "src/reduxToolkit/categoryThunk";
 
 export const ShortDefinitionOperationList: FC = () => {
@@ -79,7 +79,7 @@ export const ShortDefinitionOperationList: FC = () => {
     return (
       // eslint-disable-next-line react/jsx-key
       <div className={s.definition_product_list__div} key={item.id} id={item.id}>
-        <CartItem operation={item} />
+        <OperationItem operation={item} />
       </div>
     );
   });
