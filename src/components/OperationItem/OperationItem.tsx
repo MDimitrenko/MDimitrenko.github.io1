@@ -11,6 +11,7 @@ import { RootState } from 'src/reduxToolkit/store';
 import { Image } from 'src/components/Image/Image';
 import { useTheme } from 'src/components/theme/Theme';
 import style from './OperationItem.module.sass';
+import { getDateDDMMYYYY } from 'src/util/function';
 
 interface CartItemProps {
   operation: Operation;
@@ -30,17 +31,7 @@ const OperationItem: React.FC<CartItemProps> = ({ operation }) => {
   };
   const isoFormatDate = operation.date ? new Date(Date.parse(operation.date)) : null;
 
-  const stringDate = isoFormatDate
-    ? ('0' + (isoFormatDate.getDate() + 1)).slice(-2) +
-      '-' +
-      ('0' + (isoFormatDate.getMonth() + 1)).slice(-2) +
-      '-' +
-      isoFormatDate.getFullYear() +
-      ' ' +
-      ('0' + isoFormatDate.getHours()).slice(-2) +
-      ':' +
-      ('0' + isoFormatDate.getMinutes()).slice(-2)
-    : null;
+  const stringDate = isoFormatDate ? getDateDDMMYYYY(isoFormatDate) : null;
   const theme = useTheme();
   return (
     <div className={style.container}>

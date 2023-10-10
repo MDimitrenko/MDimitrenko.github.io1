@@ -40,6 +40,11 @@ const filterSlice = createSlice({
           type: 'ASC',
           field: 'createdAt',
         },
+        type: null,
+        date: {
+          gte: null,
+          lte: null,
+        },
       };
     },
   },

@@ -1,9 +1,3 @@
-export const generateRandomNumber = (min: number, max: number) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
 export const getHeader = () => {
   if (localStorage.getItem('accessToken')) {
     return {
@@ -20,4 +14,17 @@ export const getAuthHeader = () => {
       Authorization: 'Bearer ' + localStorage.getItem('accessToken'),
     };
   } else return null;
+};
+
+export const getDateDDMMYYYY = (date: Date) => {
+  return (
+    ('0' + (date.getDate() + 1)).slice(-2) +
+    '-' +
+    ('0' + (date.getMonth() + 1)).slice(-2) +
+    '-' +
+    date.getFullYear() +
+    ' ' +
+    ('0' + date.getHours()).slice(-2) +
+    ':' +
+    ('0' + date.getMinutes()).slice(-2));
 };

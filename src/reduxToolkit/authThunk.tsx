@@ -12,8 +12,9 @@ import {
 import { setAuth, setProfile } from '../reduxToolkit/initSlice';
 import { setMessageErrors } from '../reduxToolkit/messageSlice';
 import { getHeader } from 'src/util/function';
-import {clearOperations} from "src/reduxToolkit/operationSlice";
-import {clearCategories} from "src/reduxToolkit/categorySlice";
+import { clearOperations } from 'src/reduxToolkit/operationSlice';
+import { clearCategories } from 'src/reduxToolkit/categorySlice';
+import { clearFilter } from 'src/reduxToolkit/filterSlice';
 
 interface MyKnownError {
   errorMessage: string;
@@ -44,9 +45,10 @@ export const fetchSignup = createAsyncThunk<void, SignUpBody, { rejectValue: MyK
       if (response.ok) {
         const data = await response.json();
         const authResult: AuthResult = JSON.parse(data);
-          dispatch(setAuth(data.token));
-          dispatch(clearOperations());
-          dispatch( clearCategories());
+        dispatch(setAuth(data.token));
+        dispatch(clearOperations());
+        dispatch(clearCategories());
+        dispatch(clearFilter());
       }
       return '';
       // 👇️ const result: GetUsersResponse
@@ -118,8 +120,9 @@ export const fetchSignin = createAsyncThunk<void, SignInBody, { rejectValue: MyK
           if (response.ok) {
             const data = (await response.json()) as AuthResult;
             dispatch(setAuth(data.token));
-              dispatch(clearOperations());
-              dispatch( clearCategories());
+            dispatch(clearOperations());
+            dispatch(clearCategories());
+            dispatch(clearFilter());
           }
           // check for error response
           if (!response.ok) {
@@ -188,11 +191,10 @@ export const fetchChangeProfile = createAsyncThunk<void, UpdateProfileBody, { re
                 messageType: 'Error',
               })
             );
-
           }
         })
         .catch((error) => {
-            console.log('gcfghf')
+          console.log('gcfghf');
           dispatch(
             setMessageErrors({
               caption: 'Ошибка обновления профиля',

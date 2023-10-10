@@ -9,6 +9,7 @@ import cn from 'clsx';
 import { clearToken } from '../../../../reduxToolkit/initSlice';
 import {clearOperations} from "src/reduxToolkit/operationSlice";
 import {clearCategories} from "src/reduxToolkit/categorySlice";
+import {clearFilter} from "src/reduxToolkit/filterSlice";
 
 export const getClassName: NavLinkProps['className'] = ({ isActive }) => cn(s.link, isActive && s.active);
 
@@ -20,6 +21,7 @@ const ExitButton = () => {
     dispatch(clearToken());
     dispatch(clearOperations());
     dispatch(clearCategories());
+    dispatch(clearFilter());
   }
 
   const { t } = useTranslation();
