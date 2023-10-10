@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type Category = {
   id: string;
   name: string;
@@ -169,9 +171,16 @@ export type CategoryList = {
   sorting: {
     type: 'ASC' | 'DESC';
     field: 'id' | 'createdAt' | 'updatedAt' | 'name';
-  }
-}
+  };
+};
 
 export type UploadFile = {
   url: string;
-}
+};
+
+export type Message = {
+  caption?: string;
+  text?: string;
+  errors?: ServerErrors;
+  messageType: 'Error' | 'Info';
+};

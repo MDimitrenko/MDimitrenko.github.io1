@@ -7,6 +7,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from '@reduxjs/toolkit';
 import { SignInBody } from '../../../reduxToolkit/app.types';
 import { fetchSignin, fetchSignup } from '../../../reduxToolkit/authThunk';
+import {useTranslation} from "react-i18next";
 
 interface LoginUserFormProps {
   registration: boolean;
@@ -34,7 +35,7 @@ export const LoginUserForm: FC<LoginUserFormProps> = ({ registration }) => {
   const clickSubmit: SubmitHandler<FormValues> = async (value) => {
     const { email, password } = value;
     if (registration) {
-      dispatch(fetchSignup({ email: email, password: password, commandId: '9ba431c9-7758-4e8d-bf79-6d001569853b' }));
+      dispatch(fetchSignup({ email: email, password: password, commandId: '9ba431c9-7758-4e8d-bf79-6d001569853a' }));
     } else {
       dispatch(fetchSignin({ email: email, password: password }));
     }
@@ -42,7 +43,7 @@ export const LoginUserForm: FC<LoginUserFormProps> = ({ registration }) => {
 
     reset();
   };
-
+  const { t } = useTranslation();
   const pass = watch('password');
   return (
     <>
@@ -54,7 +55,7 @@ export const LoginUserForm: FC<LoginUserFormProps> = ({ registration }) => {
             className="text-field__input"
             placeholder="Email"
             {...register('email', {
-              required: 'Поле обязательно для заполнения',
+              required: t`is_required`,
               pattern: {
                 value: /^\w+@\w+.\w+$/,
                 message: 'Некорректный формат email',
@@ -64,13 +65,13 @@ export const LoginUserForm: FC<LoginUserFormProps> = ({ registration }) => {
 
           <label className="text-field__error-label">{errors.email?.message}</label>
 
-          <label className="text-field__label">Пароль*</label>
+          <label className="text-field__label">{t`password`}*</label>
           <input
             className="text-field__input"
             type="password"
-            placeholder="Пароль"
+            placeholder={t`password`}
             {...register('password', {
-              required: 'Поле обязательно для заполнения',
+              required: t`is_required`,
               minLength: {
                 value: 8,
                 message: 'Пароль должен содержать не менее 8 символов',
@@ -85,13 +86,13 @@ export const LoginUserForm: FC<LoginUserFormProps> = ({ registration }) => {
           <label className="text-field__error-label">{errors.password?.message}</label>
           {registration && (
             <>
-              <label className="text-field__label">Подтверждение пароля*</label>
+              <label className="text-field__label">{t`confirmPassword`}*</label>
               <input
                 className="text-field__input"
                 type="password"
-                placeholder="Подтверждение пароля"
+                placeholder={t`confirmPassword`}
                 {...register('confirmPassword', {
-                  required: 'Поле обязательно для заполнения',
+                  required: t`is_required`,
                   validate: (value) => value === pass || 'Пароли не совпадают',
                 })}
               />
@@ -101,7 +102,7 @@ export const LoginUserForm: FC<LoginUserFormProps> = ({ registration }) => {
           )}
 
           <button type="submit" className="button-add">
-            {registration ? 'Зарегистрироваться' : 'Войти'}
+            {registration ? t`Registration` : t`Authorization`}
           </button>
         </div>
       </form>

@@ -49,7 +49,7 @@ const СhangePasswordForm = () => {
     <form className={s.form} onSubmit={handleSubmit(onСhangePassword)}>
       {editPassword && (
         <div>
-          <div className={s.title}>{t`ProfileScreen.changePassword.title`}</div>
+          <div className={s.title}>{t`ProfileScreen.updatePassword.title`}</div>
           <Controller
             control={control}
             name="oldPassword"
@@ -113,7 +113,7 @@ const СhangePasswordForm = () => {
           />
         </div>
       )}
-      <WideButton text={editPassword ? t`ProfileScreen.updatePassword.edit` : t`ProfileScreen.updatePassword.save`} />
+      <WideButton isSubmit={true} text={editPassword ? t`ProfileScreen.updatePassword.save` : t`ProfileScreen.updatePassword.edit`} />
     </form>
   );
 };

@@ -10,7 +10,7 @@ import { AddProductionScreen } from '../../components/addProductionScreen/AddPro
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../reduxToolkit/store';
 import { setOpenAddOperation } from '../../reduxToolkit/operationSlice';
-import { Modal } from '../../components/Modal/Modal';
+import { Image } from '../../components/Image/Image';
 import { FilterForm } from 'src/components/Forms/FilterForm/FilterForm';
 export const OperationListScreen: FC = () => {
   const { t } = useTranslation();
@@ -28,10 +28,10 @@ export const OperationListScreen: FC = () => {
         <FilterForm />
         <div style={{ flexGrow: 1 }}>
           <div style={{ display: 'block', marginRight: '50px' }}>
-            {isSingIn && <img src={require(`../../images/icons8-plus-48.png`)} onClick={onClick} />}
-
+            {/*{isSingIn && <img src={require(`src/images/plus-green.png`)} onClick={onClick} />}*/}
+            {isSingIn && <Image fileName="plus" onClick={onClick} />}
             {/*<button type="button" className={s.productImage__img} onClick={onClick}>*/}
-            {/*  <img src={require(`../../images/icons8-plus-48.png`)} />*/}
+            {/*  <img src={require(`../../images/plus-green.png`)} />*/}
             {/*</button>*/}
           </div>
           <div>

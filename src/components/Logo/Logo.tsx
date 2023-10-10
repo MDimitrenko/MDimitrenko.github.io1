@@ -7,7 +7,7 @@ const Logo = () => {
   return (
     <div className={s.logo_wrapper}>
       <div className={s.logo}></div>
-      <div className={s.logoTitle}>hhh{t('titleShop')}</div>
+      <div className={s.logoTitle}>{t('titleApp')}</div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm, Controller } from 'react-hook-form';
 import s from './ChangeProfileForm.module.sass';
 import '../../../style.css';
@@ -22,6 +22,7 @@ const ChangeProfileForm = () => {
   const { t } = useTranslation();
   const er = t`is_required`;
   const profile = useSelector<RootState, Profile>((state) => state.initSlice.profile);
+  const showMessage = useSelector<RootState, boolean>((state) => state.messageSlise.showMessage);
   console.log(profile);
   const {
     handleSubmit,
@@ -36,7 +37,9 @@ const ChangeProfileForm = () => {
 
   const onСhangeProfile: SubmitHandler<СhangeProfileFormProps> = (value): void => {
     console.log(editProfile);
-    setEditProfile(!editProfile);
+    if (!editProfile) {
+      setEditProfile(!editProfile);
+    }
     console.log(value);
     if (editProfile) {
       const updateProfileBody: UpdateProfileBody = {
@@ -76,12 +79,15 @@ const ChangeProfileForm = () => {
 
       <VerificationInput
         disabled={true}
-        title={t`ProfileForm.name.title`}
+        title={t`ProfileForm.email.title`}
         inputValue={profile?.email}
-        placeholder={t`ProfileForm.about.placeholder`}
+        placeholder={t`ProfileForm.email.placeholder`}
       />
 
-      <WideButton text={!editProfile ? t`ProfileScreen.updateProfile.edit` : t`ProfileScreen.updateProfile.save`} />
+      <WideButton
+        isSubmit={true}
+        text={!editProfile ? t`ProfileScreen.updateProfile.edit` : t`ProfileScreen.updateProfile.save`}
+      />
     </form>
   );
 };

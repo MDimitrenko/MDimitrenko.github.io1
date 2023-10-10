@@ -9,6 +9,7 @@ export interface BasicButtonProps {
   text: string;
   className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  isSubmit?: boolean;
 }
 // eslint-disable-next-line react/prop-types
 export const BasicButton: FC<BasicButtonProps> = ({
@@ -17,15 +18,16 @@ export const BasicButton: FC<BasicButtonProps> = ({
   onClick,
   type = '',
   disabled = false,
+  isSubmit = false,
 }) => {
-
   const theme = useTheme();
   console.log(theme.theme);
   return (
     <div className={style.button__div}>
       <button
+        type={isSubmit ? 'submit' : 'button'}
         className={cn(
-            className,
+          className,
           style.button,
           disabled && style.button__disabled,
           type === 'left' && style.inBasket__leftButton,

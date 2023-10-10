@@ -8,7 +8,8 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from '@reduxjs/toolkit';
 import { fetchDeleteOperation } from '../../reduxToolkit/operationThunk';
 import { fetchDeleteCategory } from 'src/reduxToolkit/categoryThunk';
-import {setEditCategory, setOpenAddCategory} from 'src/reduxToolkit/categorySlice';
+import { setEditCategory, setOpenAddCategory } from 'src/reduxToolkit/categorySlice';
+import { Image } from 'src/components/Image/Image';
 
 const ItemContainer = styled.div`
   display: flex;
@@ -77,23 +78,16 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ category }) => {
   const onEdit = () => {
     dispatch(setEditCategory(category));
     dispatch(setOpenAddCategory(true));
-
   };
   return (
     <ItemContainer>
-      {/*{operation.category.photo && <ItemImage src={operation.category.photo} />}*/}
       <ItemContent>
         <ItemHeader>{category.name}</ItemHeader>
         <ItemFooter>
-          <img src={category.photo} width="80px"/>
-          {/*<DeleteButton onClick={onDelete}>Delete</DeleteButton>*/}
+          <img src={category.photo} width="80px" />
           <div>
-            <img src={require(`../../images/free-icon-edit.png`)}
-                  onClick={onEdit}
-            />
-            <img src={require(`../../images/free-icon-dustbin.png`)}
-                  onClick={onDelete}
-            />
+            <Image fileName="edit" onClick={onEdit} />
+            <Image fileName="delete" onClick={onDelete} />
           </div>
         </ItemFooter>
       </ItemContent>

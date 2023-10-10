@@ -1,15 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
-    SignUpBody,
-    AuthResult,
-    ServerErrors,
-    SignInBody,
-    Profile,
-    UpdateProfileBody,
-    ChangePasswordBody, ChangePasswordResult
+  SignUpBody,
+  AuthResult,
+  ServerErrors,
+  SignInBody,
+  Profile,
+  UpdateProfileBody,
+  ChangePasswordBody,
+  ChangePasswordResult,
 } from './app.types';
-import { setAuth, setErrors, setProfile } from '../reduxToolkit/initSlice';
+import { setAuth, setProfile } from '../reduxToolkit/initSlice';
+import { setMessageErrors } from '../reduxToolkit/messageSlice';
 import { getHeader } from 'src/util/function';
+import {clearOperations} from "src/reduxToolkit/operationSlice";
+import {clearCategories} from "src/reduxToolkit/categorySlice";
 
 interface MyKnownError {
   errorMessage: string;
@@ -29,12 +33,20 @@ export const fetchSignup = createAsyncThunk<void, SignUpBody, { rejectValue: MyK
       });
       if (!response.ok) {
         const error: ServerErrors = (await response.json()) as ServerErrors;
-        dispatch(setErrors(error.errors.map((e) => e.message)));
+        dispatch(
+          setMessageErrors({
+            caption: 'Ошибка регистрации',
+            errors: error,
+            messageType: 'Error',
+          })
+        );
       }
       if (response.ok) {
         const data = await response.json();
         const authResult: AuthResult = JSON.parse(data);
-        setAuth(data.token);
+          dispatch(setAuth(data.token));
+          dispatch(clearOperations());
+          dispatch( clearCategories());
       }
       return '';
       // 👇️ const result: GetUsersResponse
@@ -62,17 +74,32 @@ export const fetchGetProfile = createAsyncThunk<void, void, { rejectValue: MyKno
           // check for error response
           if (!response.ok) {
             const error: ServerErrors = (await response.json()) as ServerErrors;
-            dispatch(setErrors(error.errors.map((e) => e.message)));
+            dispatch(
+              setMessageErrors({
+                caption: 'Ошибка получения данных профиля',
+                errors: error,
+                messageType: 'Error',
+              })
+            );
           }
         })
         .catch((error) => {
-          dispatch(setErrors([error]));
+          dispatch(
+            setMessageErrors({
+              caption: 'Ошибка получения данных профиля',
+              text: error.message,
+              messageType: 'Error',
+            })
+          );
         });
-
-      return '';
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка получения данных профиля',
+          text: error.message,
+          messageType: 'Error',
+        })
+      );
     }
   }
 );
@@ -91,21 +118,40 @@ export const fetchSignin = createAsyncThunk<void, SignInBody, { rejectValue: MyK
           if (response.ok) {
             const data = (await response.json()) as AuthResult;
             dispatch(setAuth(data.token));
+              dispatch(clearOperations());
+              dispatch( clearCategories());
           }
           // check for error response
           if (!response.ok) {
             const error: ServerErrors = (await response.json()) as ServerErrors;
-            dispatch(setErrors(error.errors.map((e) => e.message)));
+            dispatch(
+              setMessageErrors({
+                caption: 'Ошибка входа',
+                errors: error,
+                messageType: 'Error',
+              })
+            );
           }
         })
         .catch((error) => {
-          dispatch(setErrors([error]));
+          dispatch(
+            setMessageErrors({
+              caption: 'Ошибка входа',
+              text: error.message,
+              messageType: 'Error',
+            })
+          );
         });
 
-      return '';
+      // return '';
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка входа',
+          text: error.message,
+          messageType: 'Error',
+        })
+      );
     }
   }
 );
@@ -124,21 +170,45 @@ export const fetchChangeProfile = createAsyncThunk<void, UpdateProfileBody, { re
           if (response.ok) {
             const data = (await response.json()) as Profile;
             dispatch(setProfile(data));
+            dispatch(
+              setMessageErrors({
+                text: 'Профиль успешно обновлен',
+                messageType: 'Info',
+              })
+            );
           }
           // check for error response
           if (!response.ok) {
             const error: ServerErrors = (await response.json()) as ServerErrors;
-            dispatch(setErrors(error.errors.map((e) => e.message)));
+
+            dispatch(
+              setMessageErrors({
+                caption: 'Ошибка обновления профиля',
+                errors: error,
+                messageType: 'Error',
+              })
+            );
+
           }
         })
         .catch((error) => {
-          dispatch(setErrors([error]));
+            console.log('gcfghf')
+          dispatch(
+            setMessageErrors({
+              caption: 'Ошибка обновления профиля',
+              text: error.message,
+              messageType: 'Error',
+            })
+          );
         });
-
-      return '';
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка обновления профиля',
+          text: error.message,
+          messageType: 'Error',
+        })
+      );
     }
   }
 );
@@ -156,17 +226,35 @@ export const fetchChangePasswordProfile = createAsyncThunk<void, ChangePasswordB
         .then(async (response) => {
           if (response.ok) {
             const data = (await response.json()) as ChangePasswordResult;
-              console.log(data)
+            console.log(data);
+            dispatch(
+              setMessageErrors({
+                text: 'Пароль успешно обновлен',
+                messageType: 'Info',
+              })
+            );
             //dispatch(setProfile(data));
           }
           // check for error response
           if (!response.ok) {
             const error: ServerErrors = (await response.json()) as ServerErrors;
-            dispatch(setErrors(error.errors.map((e) => e.message)));
+            dispatch(
+              setMessageErrors({
+                caption: 'Ошибка изменения пароля',
+                errors: error,
+                messageType: 'Error',
+              })
+            );
           }
         })
         .catch((error) => {
-          dispatch(setErrors([error]));
+          dispatch(
+            setMessageErrors({
+              caption: 'Ошибка изменения пароля',
+              text: error.message,
+              messageType: 'Error',
+            })
+          );
         });
 
       return '';

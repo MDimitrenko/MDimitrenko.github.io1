@@ -142,7 +142,7 @@ export const AddOperationForm: FC = () => {
             type="text"
             placeholder={t('AddOperationForm.operationName')}
             {...register('name', {
-              required: t('AddOperationForm.error'),
+              required: t('is_required'),
             })}
           />
           <label className="text-field__error-label">{errors.name?.message}</label>
@@ -162,7 +162,7 @@ export const AddOperationForm: FC = () => {
             placeholder={t('AddOperationForm.price')}
             step="any"
             {...register('amount', {
-              required: t('AddOperationForm.error'),
+              required: t('is_required'),
               min: {
                 message: t('AddOperationForm.minAmount'),
                 value: 0.01,
@@ -176,7 +176,6 @@ export const AddOperationForm: FC = () => {
           <Controller
             control={control}
             name="date"
-
             render={({ field }) => (
               <DatePickerBox
                 name="isinDate"
@@ -187,13 +186,14 @@ export const AddOperationForm: FC = () => {
           />
 
           <label className="text-field__error-label">{errors.amount?.message}</label>
-          <button type="submit" className="button-add-operation">
-            {!operation && t('AddOperationForm.add')}
-            {operation && t('AddOperationForm.change')}
-          </button>
-          <button className="button-add-operation" onClick={handleCloseModal}>
-            Отмена
-          </button>
+          <div style={{ display: 'flex', alignContent: 'center' }}>
+            <BasicButton
+              className="button-add-op"
+              isSubmit={true}
+              text={operation ? t('AddOperationForm.change') : t('AddOperationForm.add')}
+            ></BasicButton>
+            <BasicButton className="button-add-op" onClick={handleCloseModal} text={t('AddOperationForm.cancel')}></BasicButton>
+          </div>
         </div>
       </form>
     </Modal>

@@ -36,9 +36,7 @@ const operationSlice = createSlice({
       const index = state.operations.findIndex((op) => op.id === action.payload);
       state.operations.splice(index, 1);
     },
-    setErrors: (state = initialState, action) => {
-      state.errors = action.payload;
-    },
+
     setUploadPage: (state = initialState, action) => {
 
       state.uploadPage = action.payload.uploadPage;
@@ -68,10 +66,9 @@ export const {
   addOperation,
   updateOperation,
   deleteOperation,
-  setErrors,
   setUploadPage,
   setOpenAddOperation,
   setEditOperation,
-    clearOperations,
+  clearOperations,
 } = operationSlice.actions;
 export default operationSlice.reducer;

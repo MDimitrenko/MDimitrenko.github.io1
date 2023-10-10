@@ -4,11 +4,11 @@ import {
   addOperation,
   addOperations,
   deleteOperation,
-  setErrors,
   setUploadPage,
   updateOperation,
 } from '../reduxToolkit/operationSlice';
 import { getHeader } from 'src/util/function';
+import { setMessageErrors } from 'src/reduxToolkit/messageSlice';
 
 interface MyKnownError {
   errorMessage: string;
@@ -31,17 +31,32 @@ export const fetchDeleteOperation = createAsyncThunk<void, string, { rejectValue
           }
           if (!response.ok) {
             const error: ServerErrors = (await response.json()) as ServerErrors;
-            dispatch(setErrors(error.errors.map((e) => e.message)));
+            dispatch(
+              setMessageErrors({
+                caption: 'Ошибка удаления операции',
+                errors: error,
+                messageType: 'Error',
+              })
+            );
           }
         })
         .catch((error) => {
-          dispatch(setErrors([error]));
+          dispatch(
+            setMessageErrors({
+              caption: 'Ошибка удаления операции',
+              text: error.message,
+              messageType: 'Error',
+            })
+          );
         });
-
-      return '';
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка удаления операции',
+          text: error.message,
+          messageType: 'Error',
+        })
+      );
     }
   }
 );
@@ -81,18 +96,33 @@ export const fetchGetOperation = createAsyncThunk<void, Filters, { rejectValue: 
           // check for error response
           if (!response.ok) {
             const error: ServerErrors = (await response.json()) as ServerErrors;
-            dispatch(setErrors(error.errors.map((e) => e.message)));
+            dispatch(
+              setMessageErrors({
+                caption: 'Ошибка получения операций',
+                errors: error,
+                messageType: 'Error',
+              })
+            );
           }
         })
         .catch((error) => {
           console.log(error);
-          dispatch(setErrors([error]));
+          dispatch(
+            setMessageErrors({
+              caption: 'Ошибка получения операций',
+              text: error.message,
+              messageType: 'Error',
+            })
+          );
         });
-
-      return '';
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка получения операций',
+          text: error.message,
+          messageType: 'Error',
+        })
+      );
     }
   }
 );
@@ -116,17 +146,32 @@ export const fetchAddOperation = createAsyncThunk<void, NewOperation, { rejectVa
           // check for error response
           if (!response.ok) {
             const error: ServerErrors = (await response.json()) as ServerErrors;
-            dispatch(setErrors(error.errors.map((e) => e.message)));
+            dispatch(
+              setMessageErrors({
+                caption: 'Ошибка добавления операции',
+                errors: error,
+                messageType: 'Error',
+              })
+            );
           }
         })
         .catch((error) => {
-          dispatch(setErrors([error]));
+          dispatch(
+            setMessageErrors({
+              caption: 'Ошибка добавления операции',
+              text: error.message,
+              messageType: 'Error',
+            })
+          );
         });
-
-      return '';
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка добавления операции',
+          text: error.message,
+          messageType: 'Error',
+        })
+      );
     }
   }
 );
@@ -158,11 +203,23 @@ export const fetchUpdateOperation = createAsyncThunk<void, NewOperation, { rejec
           // check for error response
           if (!response.ok) {
             const error: ServerErrors = (await response.json()) as ServerErrors;
-            dispatch(setErrors(error.errors.map((e) => e.message)));
+            dispatch(
+              setMessageErrors({
+                caption: 'Ошибка обновления операции',
+                errors: error,
+                messageType: 'Error',
+              })
+            );
           }
         })
         .catch((error) => {
-          dispatch(setErrors([error]));
+          dispatch(
+            setMessageErrors({
+              caption: 'Ошибка добавления операции',
+              text: error.message,
+              messageType: 'Error',
+            })
+          );
         });
 
       return '';

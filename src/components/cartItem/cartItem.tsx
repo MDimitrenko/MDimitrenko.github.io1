@@ -9,6 +9,8 @@ import { AnyAction } from '@reduxjs/toolkit';
 import { fetchDeleteOperation } from '../../reduxToolkit/operationThunk';
 import { setEditOperation, setOpenAddOperation } from '../../reduxToolkit/operationSlice';
 import { RootState } from 'src/reduxToolkit/store';
+import {Image} from "src/components/Image/Image";
+import {useTheme} from "src/components/theme/Theme";
 
 const ItemContainer = styled.div`
   display: flex;
@@ -96,11 +98,12 @@ const CartItem: React.FC<CartItemProps> = ({ operation }) => {
       ('0' + isoFormatDate.getMinutes()).slice(-2)
     : null;
   // console.log(stringDate)
+  const theme = useTheme();
   return (
     <ItemContainer>
       <ItemImage
-        src={operation.category.photo || require(`../../images/icons8-wallet.png`)}
-        title={operation.category.name}
+        src={operation.category?.photo || require(`../../images/wallet-${theme.theme}.png`)}
+        title={operation.category?.name}
       />
       <ItemContent>
         <ItemHeader>
@@ -115,8 +118,8 @@ const CartItem: React.FC<CartItemProps> = ({ operation }) => {
           </div>
           {isSingIn && (
             <div>
-              <img src={require(`../../images/free-icon-edit.png`)} onClick={onEdit} />
-              <img src={require(`../../images/free-icon-dustbin.png`)} onClick={onDelete} />
+              <Image fileName="edit" onClick={onEdit} />
+              <Image fileName="delete" onClick={onDelete} />
             </div>
           )}
         </ItemFooter>

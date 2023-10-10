@@ -29,7 +29,7 @@ const TopMenu = ({ children }: TopMenuProps) => {
 
       {isSingIn && (
           <NavLink className={getClassName} to="/category">
-              Категории приходов/расходов
+              {t`CategoryScreenTitle`}
           </NavLink>
       )}
       {isSingIn && (

@@ -2,15 +2,17 @@ import React, { FC } from 'react';
 import style from './MessageForm.module.sass';
 import { ServerErrors } from '../../../reduxToolkit/app.types';
 import { BasicButton } from '../../basicButton/BasicButton';
+import { Modal } from 'src/components/Modal/Modal';
 
 export type MessageFormProps = {
   caption?: string;
   text?: string;
+  messageType: 'Error' | 'Info';
   onClickEvent: React.MouseEventHandler<HTMLButtonElement>;
   errors?: ServerErrors;
 };
 
-export const MessageForm: FC<MessageFormProps> = ({ caption, text, onClickEvent, errors }) => {
+export const MessageForm: FC<MessageFormProps> = ({ caption, text, onClickEvent, errors, messageType}) => {
   const createContent = () => {
     const content = [];
     let j = 0;
@@ -30,23 +32,25 @@ export const MessageForm: FC<MessageFormProps> = ({ caption, text, onClickEvent,
 
   const content = createContent();
   return (
-    <div className={style.message_content}>
-      {caption && <label className={style.message_caption}>{caption}</label>}
-      <div className={style.message_text_context}>
-        <img
-          src={require(errors ? `../../../images/icon-error.png` : `../../../images/icon-ok.png`)}
-          width="40px"
-          height="40px"
-        />
-        <div className={style.message_text}>
-          {text && <label>{text}</label>}
-          {errors && content}
+    <Modal>
+      <div className={style.message_content}>
+        {caption && <label className={style.message_caption}>{caption}</label>}
+        <div className={style.message_text_context}>
+          <img
+            src={require(messageType === 'Error' ? `../../../images/icon-error.png` : `../../../images/icon-ok.png`)}
+            width="40px"
+            height="40px"
+          />
+          <div className={style.message_text}>
+            {text && <label>{text}</label>}
+            {errors && content}
+          </div>
+        </div>
+        <div className={style.div_button}>
+          <BasicButton onClick={onClickEvent} text="OK" />
         </div>
       </div>
-      <div className={style.div_button}>
-        <BasicButton onClick={onClickEvent} text="OK" />
-      </div>
-    </div>
+    </Modal>
   );
 };
 export default MessageForm;

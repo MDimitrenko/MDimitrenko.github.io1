@@ -10,6 +10,7 @@ import { RootState } from '../../reduxToolkit/store';
 import { setOpenAddCategory } from '../../reduxToolkit/categorySlice';
 import { CategoryList } from '../../components/CategoryList/CategoryList';
 import { AddCategoryScreen } from '../../components/AddCategoryScreen/AddCategoryScreen';
+import {Image} from "src/components/Image/Image";
 export const CategoryListScreen: FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ export const CategoryListScreen: FC = () => {
       <div style={{ display: 'block', marginRight: '50px' }}>
           {/*<div className={s.plus}>fff</div>*/}
         {/*<button type="button" className={s.productImage__img} onClick={onClick}>*/}
-          <img src={require(`../../images/icons8-plus-48.png`)} onClick={onClick}/>
+          <Image fileName="plus" onClick={onClick} />
         {/*</button>*/}
       </div>
       <div>

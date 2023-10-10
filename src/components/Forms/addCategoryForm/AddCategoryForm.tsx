@@ -13,6 +13,8 @@ import { fetchAddCategoryWithImage, fetchChangeCategoryWithImage } from '../../.
 import { ThunkDispatch } from 'redux-thunk';
 // eslint-disable-next-line import/named
 import { AnyAction } from '@reduxjs/toolkit';
+import { BasicButton } from 'src/components/basicButton/BasicButton';
+import {useTheme} from "src/components/theme/Theme";
 // interface AddCategoryFormProps {
 //   category?: Category;
 // }
@@ -69,7 +71,6 @@ export const AddCategoryForm: FC = () => {
   const [file, setFile] = useState(undefined);
   const [url, setUrl] = useState(category !== null ? category.photo : undefined);
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-
     setSelectFile(true);
     setFile(e.target.files[0]);
   };
@@ -79,16 +80,18 @@ export const AddCategoryForm: FC = () => {
     setSelectFile(false);
     setUrl(undefined);
   };
+  const theme = useTheme();
+  console.log(theme.theme)
   return (
     <Modal>
       <form onSubmit={handleSubmit(addCategory)}>
         <div className="text-field">
-          <label className="text-field__label">{t('AddCategoryForm.name')}</label>
+          <label className="text-field__label">{t('is_required')}</label>
           <input
             className="text-field__input"
             type="text"
             placeholder={t('AddCategoryForm.name')}
-            {...register('name', { required: t('AddCategoryForm.error') })}
+            {...register('name', { required: t('is_required') })}
           />
           <label className="text-field__error-label">{errors.name?.message}</label>
 
@@ -97,7 +100,7 @@ export const AddCategoryForm: FC = () => {
               <>
                 <label className="text-field__label">{t('AddCategoryForm.addImages')}</label>
 
-                <label className="input-file">
+                <label className="input-file" data-theme={theme.theme}>
                   <input type="file" accept="image/png, image/jpeg" id="categoryPhoto" onChange={onChangeFile} />
                   <span>{t('AddCategoryForm.selectFile')}</span>
                 </label>
@@ -108,17 +111,18 @@ export const AddCategoryForm: FC = () => {
                 {/*<label className="text-field__file-name">{file ? file.name : url} </label>*/}
                 {url && <img src={url} width="70px"></img>}
                 {file && <img src={URL.createObjectURL(file)} width="70px" />}
-                <input type="button" value="Х" className="button-delete" onClick={() => onClickDeleteFile()} />
+                <BasicButton text="Х" className="button-delete" onClick={() => onClickDeleteFile()} />
               </div>
             )}
           </div>
-          <button type="submit" className="button-add-operation">
-            {!category && t('AddCategoryForm.add')}
-            {category && t('AddCategoryForm.change')}
-          </button>
-          <button className="button-add-operation" onClick={handleCloseModal}>
-            Отмена
-          </button>
+          <div style={{ display: 'flex', alignContent: 'center', marginTop: '10px' }}>
+            <BasicButton
+              className="button-add-cat"
+              isSubmit={true}
+              text={category ? t('AddCategoryForm.change') : t('AddCategoryForm.add')}
+            ></BasicButton>
+            <BasicButton className="button-add-op" onClick={handleCloseModal} text={t('AddCategoryForm.cancel')}></BasicButton>
+          </div>
         </div>
       </form>
     </Modal>

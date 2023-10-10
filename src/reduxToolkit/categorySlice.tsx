@@ -24,9 +24,7 @@ const operationSlice = createSlice({
       state.categories = action.payload;
       state.allUploaded = true;
     },
-    setErrors: (state = initialState, action) => {
-      state.errors = action.payload;
-    },
+
     deleteCategory: (state = initialState, action) => {
       const index = state.categories.findIndex((op) => op.id === action.payload);
       state.categories.splice(index, 1);
@@ -49,16 +47,21 @@ const operationSlice = createSlice({
       const index = state.categories.findIndex((op) => op.id === action.payload.id);
       state.categories[index] = action.payload;
     },
+    clearCategories: (state = initialState) => {
+      state.categories = [];
+      state.allUploaded = false;
+
+    },
   },
 });
 
 export const {
   setCategories,
-  setErrors,
   deleteCategory,
   setOpenAddCategory,
   addCategory,
   setEditCategory,
   changeCategory,
+  clearCategories,
 } = operationSlice.actions;
 export default operationSlice.reducer;

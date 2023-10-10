@@ -41,9 +41,7 @@ const initSlice = createSlice({
     changeProfile: (state = initialState, action) => {
       state.profile = action.payload;
     },
-    setErrors: (state = initialState, action) => {
-      state.errors = action.payload;
-    },
+
     setEditPassword: (state = initialState, action) => {
       state.editPassword = action.payload;
     },
@@ -53,5 +51,5 @@ const initSlice = createSlice({
   },
 });
 
-export const { clearToken, setProfile, changeProfile, setErrors, setAuth } = initSlice.actions;
+export const { clearToken, setProfile, changeProfile, setAuth } = initSlice.actions;
 export default initSlice.reducer;

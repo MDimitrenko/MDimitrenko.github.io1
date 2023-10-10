@@ -3,7 +3,8 @@ import initSlice from './initSlice';
 import thunkMiddleware from 'redux-thunk';
 import operationSlice from './operationSlice';
 import categorySlice from './categorySlice';
-import filterSlice from "./filterSlice";
+import filterSlice from './filterSlice';
+import messageSlise from './messageSlice';
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     operationSlice,
     categorySlice,
     filterSlice,
+    messageSlise,
   },
   middleware: [thunkMiddleware],
 });

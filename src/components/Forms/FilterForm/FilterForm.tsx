@@ -10,9 +10,10 @@ import { Filters } from '../../../reduxToolkit/app.types';
 import { DatePickerBox } from '../../DatePickerBox/DatePickerBox';
 import { Select } from 'antd';
 import Checkbox from '../../Checkbox/Checkbox';
-import {setFilter} from "src/reduxToolkit/filterSlice";
-import {clearOperations, setUploadPage} from "src/reduxToolkit/operationSlice";
-import {BasicButton} from "src/components/basicButton/BasicButton";
+import { setFilter } from 'src/reduxToolkit/filterSlice';
+import { clearOperations, setUploadPage } from 'src/reduxToolkit/operationSlice';
+import { BasicButton } from 'src/components/basicButton/BasicButton';
+import { useTranslation } from 'react-i18next';
 
 // eslint-disable-next-line react/prop-types
 export const FilterForm: FC = () => {
@@ -45,7 +46,7 @@ export const FilterForm: FC = () => {
   const dispatch = useDispatch();
   const clickSubmit: SubmitHandler<FormValues> = async (value) => {
     console.log(value);
-    const filter: Filters ={
+    const filter: Filters = {
       pagination: {
         pageSize: 20,
         pageNumber: 1,
@@ -54,23 +55,24 @@ export const FilterForm: FC = () => {
         type: 'ASC',
         field: 'createdAt',
       },
-      type: value.operationType === 'Приход' ? 'Profit' : (value.operationType === 'Расход' ? 'Cost' : null),
+      type: value.operationType === 'Приход' ? 'Profit' : value.operationType === 'Расход' ? 'Cost' : null,
       date: {
         gte: value.checkStartDate ? value.startDate.toISOString() : null,
         lte: value.checkEndDate ? value.endDate.toISOString() : null,
-      }
-    }
+      },
+    };
     dispatch(clearOperations());
-   dispatch(setFilter(filter));
+    dispatch(setFilter(filter));
   };
 
   const selectedStartDate = watch('checkStartDate');
   const selectedEndDate = watch('checkEndDate');
+  const { t } = useTranslation();
   return (
-    <div style={{width: "350px"}}>
+    <div style={{ width: '350px' }}>
       <form onSubmit={handleSubmit(clickSubmit)}>
         <div className={style.filter_form}>
-          <label className={style.filter_form__text_field__label}>Тип операции</label>
+          <label className={style.filter_form__text_field__label}>{t`Filter.operationType`}</label>
           <Controller
             control={control}
             name="operationType"
@@ -97,7 +99,7 @@ export const FilterForm: FC = () => {
               control={control}
               name="checkStartDate"
               render={({ field }) => (
-                <Checkbox id="1" name="startDate" label="Дата с" onChange={(event) => field.onChange(event)} />
+                <Checkbox id="1" name="startDate" label={t`Filter.dateFrom`} onChange={(event) => field.onChange(event)} />
               )}
             />
           </div>
@@ -117,7 +119,7 @@ export const FilterForm: FC = () => {
             control={control}
             name="checkEndDate"
             render={({ field }) => (
-              <Checkbox id="2" name="endDate" label="Дата по" onChange={(event) => field.onChange(event)} />
+              <Checkbox id="2" name="endDate" label={t`Filter.dateTo`} onChange={(event) => field.onChange(event)} />
             )}
           />
           {/*<label className="text-field__error-label">{errors.email?.message}</label>*/}
@@ -134,8 +136,7 @@ export const FilterForm: FC = () => {
             )}
           />
 
-          <BasicButton type="submit" text='Применить фильтр' className={style.button_width}/>
-
+          <BasicButton isSubmit={true} text={t`Filter.applyFilter`} className={style.button_width} />
         </div>
       </form>
     </div>

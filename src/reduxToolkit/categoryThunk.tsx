@@ -1,10 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ServerErrors, Category, NewCategory, CategoryList, UploadFile } from './app.types';
-import {addCategory, setErrors, deleteCategory, setCategories, changeCategory} from '../reduxToolkit/categorySlice';
+import { addCategory, deleteCategory, setCategories, changeCategory } from '../reduxToolkit/categorySlice';
 import { getAuthHeader, getHeader } from 'src/util/function';
 
 // eslint-disable-next-line import/named
 import { Dispatch } from 'redux';
+import { setMessageErrors } from 'src/reduxToolkit/messageSlice';
 
 interface MyKnownError {
   errorMessage: string;
@@ -27,17 +28,32 @@ export const fetchDeleteCategory = createAsyncThunk<void, string, { rejectValue:
           // check for error response
           if (!response.ok) {
             const error: ServerErrors = (await response.json()) as ServerErrors;
-            dispatch(setErrors(error.errors.map((e) => e.message)));
+            dispatch(
+              setMessageErrors({
+                caption: 'Ошибка удаления категории',
+                errors: error,
+                messageType: 'Error',
+              })
+            );
           }
         })
         .catch((error) => {
-          dispatch(setErrors([error]));
+          dispatch(
+            setMessageErrors({
+              caption: 'Ошибка удаления категории',
+              text: error.message,
+              messageType: 'Error',
+            })
+          );
         });
-
-      return '';
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка удаления категории',
+          text: error.message,
+          messageType: 'Error',
+        })
+      );
     }
   }
 );
@@ -60,17 +76,32 @@ export const fetchGetCategories = createAsyncThunk<void, void, { rejectValue: My
           // check for error response
           if (!response.ok) {
             const error: ServerErrors = (await response.json()) as ServerErrors;
-            dispatch(setErrors(error.errors.map((e) => e.message)));
+            dispatch(
+              setMessageErrors({
+                caption: 'Ошибка получения категорий',
+                errors: error,
+                messageType: 'Error',
+              })
+            );
           }
         })
         .catch((error) => {
-          dispatch(setErrors([error]));
+          dispatch(
+            setMessageErrors({
+              caption: 'Ошибка получения категорий',
+              text: error.message,
+              messageType: 'Error',
+            })
+          );
         });
-
-      return '';
     } catch (error) {
-      console.log(error.message);
-      return error.message;
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка получения категорий',
+          text: error.message,
+          messageType: 'Error',
+        })
+      );
     }
   }
 );
@@ -123,11 +154,23 @@ const fetchUpload = (file: File, categoryName: string, dispatch: Dispatch) => {
       // check for error response
       if (!response.ok) {
         const error: ServerErrors = (await response.json()) as ServerErrors;
-        dispatch(setErrors(error.errors.map((e) => e.message)));
+        dispatch(
+          setMessageErrors({
+            caption: 'Ошибка загрузки файла',
+            errors: error,
+            messageType: 'Error',
+          })
+        );
       }
     })
     .catch((error) => {
-      dispatch(setErrors([error]));
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка загрузки файла',
+          text: error.message,
+          messageType: 'Error',
+        })
+      );
     });
 };
 
@@ -149,11 +192,23 @@ const fetchChangeUpload = (newCategory: NewCategory, dispatch: Dispatch) => {
       // check for error response
       if (!response.ok) {
         const error: ServerErrors = (await response.json()) as ServerErrors;
-        dispatch(setErrors(error.errors.map((e) => e.message)));
+        dispatch(
+          setMessageErrors({
+            caption: 'Ошибка загрузки файла',
+            errors: error,
+            messageType: 'Error',
+          })
+        );
       }
     })
     .catch((error) => {
-      dispatch(setErrors([error]));
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка загрузки файла',
+          errors: error,
+          messageType: 'Error',
+        })
+      );
     });
 };
 const fetchChangeCategory = (newCategory: NewCategory, dispatch: Dispatch) => {
@@ -174,11 +229,23 @@ const fetchChangeCategory = (newCategory: NewCategory, dispatch: Dispatch) => {
       // check for error response
       if (!response.ok) {
         const error: ServerErrors = (await response.json()) as ServerErrors;
-        dispatch(setErrors(error.errors.map((e) => e.message)));
+        dispatch(
+          setMessageErrors({
+            caption: 'Ошибка обновления категории',
+            errors: error,
+            messageType: 'Error',
+          })
+        );
       }
     })
     .catch((error) => {
-      dispatch(setErrors([error]));
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка обновления категории',
+          text: error.message,
+          messageType: 'Error',
+        })
+      );
     });
 };
 const fetchAddCategory = (categoryName: string, url: string, dispatch: Dispatch) => {
@@ -199,51 +266,23 @@ const fetchAddCategory = (categoryName: string, url: string, dispatch: Dispatch)
       // check for error response
       if (!response.ok) {
         const error: ServerErrors = (await response.json()) as ServerErrors;
-        dispatch(setErrors(error.errors.map((e) => e.message)));
+        dispatch(
+          setMessageErrors({
+            caption: 'Ошибка добавления категории',
+            errors: error,
+            messageType: 'Error',
+          })
+        );
       }
     })
     .catch((error) => {
-      dispatch(setErrors([error]));
+      dispatch(
+        setMessageErrors({
+          caption: 'Ошибка добавления категории',
+          text: error.message,
+          messageType: 'Error',
+        })
+      );
     });
 };
-// export const fetchUpdateOperation = createAsyncThunk<void, Operation, { rejectValue: MyKnownError }>(
-//   'operationSlice/fetchUpdateOperation',
-//   async (params, { rejectWithValue, dispatch }) => {
-//     try {
-//       const newOperation: NewOperation = {
-//         name: params.name,
-//         desc: params.desc,
-//         amount: params.amount,
-//         type: params.type,
-//         categoryId: params.category.id,
-//       };
-//       const requestOptions = {
-//         method: 'POST',
-//         // headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(params),
-//       };
-//       fetch('http://19429ba06ff2.vps.myjino.ru/api/operations/' + params.id, requestOptions)
-//         .then(async (response) => {
-//           if (response.ok) {
-//             const data = await response.json();
-//             const operation: Operation = JSON.parse(data);
-//             dispatch(updateOperation(operation));
-//           }
-//           // check for error response
-//           if (!response.ok) {
-//             const data = await response.json();
-//             const error: ServerErrors = JSON.parse(data);
-//             dispatch(setErrors(error.errors.map((e) => e.message)));
-//           }
-//         })
-//         .catch((error) => {
-//           dispatch(setErrors([error]));
-//         });
-//
-//       return '';
-//     } catch (error) {
-//       console.log(error.message);
-//       return error.message;
-//     }
-//   }
-// );
+
