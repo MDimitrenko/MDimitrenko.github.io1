@@ -20,7 +20,9 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className={s.layout}>
       <Header />
-      {children}
+      <div style={{ position: 'absolute', top: '160px',
+        left: 0, right: 0, bottom: 0, overflowY: 'scroll' }}>{children}</div>
+
       {showMessage &&
         createPortal(
           <Theme>
