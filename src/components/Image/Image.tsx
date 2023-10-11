@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useTheme } from 'src/components/theme/Theme';
+import { useTheme } from '../theme/Theme';
 
 interface ImageProps {
   fileName: string;

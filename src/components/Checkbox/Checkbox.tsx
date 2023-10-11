@@ -1,6 +1,6 @@
 import './Checkbox.css';
 import React, { ChangeEvent, FC } from 'react';
-import { useTheme } from 'src/components/theme/Theme';
+import { useTheme } from '../theme/Theme';
 
 interface CheckboxProps {
   id: string;

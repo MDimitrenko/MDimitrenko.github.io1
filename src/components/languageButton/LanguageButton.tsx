@@ -3,8 +3,8 @@ import React, { FC } from 'react';
 import '../../i18n';
 import { useTranslation } from 'react-i18next';
 import s from './LanguageButton.module.sass';
-import {useTheme} from "src/components/theme/Theme";
-import {BasicButton} from "src/components/basicButton/BasicButton";
+import { useTheme } from '../theme/Theme';
+import { BasicButton } from '../basicButton/BasicButton';
 
 // eslint-disable-next-line react/prop-types
 export const LanguageButton: FC = () => {
@@ -16,10 +16,18 @@ export const LanguageButton: FC = () => {
 
   return (
     <div className={s.language_button} data-theme={theme}>
-      <BasicButton text={t('language.ru')} onClick={() => i18n.changeLanguage('ru')}
-      disabled={'ru' === i18n.language} type='left'/>
-      <BasicButton text={t('language.en')} onClick={() => i18n.changeLanguage('en')}
-                   disabled={'en' === i18n.language} type='right'/>
+      <BasicButton
+        text={t('language.ru')}
+        onClick={() => i18n.changeLanguage('ru')}
+        disabled={'ru' === i18n.language}
+        type="left"
+      />
+      <BasicButton
+        text={t('language.en')}
+        onClick={() => i18n.changeLanguage('en')}
+        disabled={'en' === i18n.language}
+        type="right"
+      />
     </div>
   );
 };

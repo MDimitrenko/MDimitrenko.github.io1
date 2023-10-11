@@ -5,10 +5,10 @@ import { Category, Operation } from '../../reduxToolkit/app.types';
 import { ThunkDispatch } from 'redux-thunk';
 // eslint-disable-next-line import/named
 import { AnyAction } from '@reduxjs/toolkit';
-import { fetchDeleteCategory } from 'src/reduxToolkit/categoryThunk';
-import { setEditCategory, setOpenAddCategory } from 'src/reduxToolkit/categorySlice';
-import { Image } from 'src/components/Image/Image';
-import style from './CategoryItem.module.sass'
+import { fetchDeleteCategory } from '../../reduxToolkit/categoryThunk';
+import { setEditCategory, setOpenAddCategory } from '../../reduxToolkit/categorySlice';
+import { Image } from '../Image/Image';
+import style from './CategoryItem.module.sass';
 
 interface CategoryItemProps {
   category: Category;

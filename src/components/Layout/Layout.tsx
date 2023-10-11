@@ -3,11 +3,11 @@ import s from './Layout.module.sass';
 import Header from '../Header/Header';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'src/reduxToolkit/store';
-import { Message } from 'src/reduxToolkit/app.types';
-import MessageForm from 'src/components/Forms/MessageForm/MessageForm';
-import { clearMessageErrors } from 'src/reduxToolkit/messageSlice';
-import Theme from 'src/components/theme/Theme';
+import { RootState } from '../../reduxToolkit/store';
+import { Message } from '../../reduxToolkit/app.types';
+import MessageForm from '../../components/Forms/MessageForm/MessageForm';
+import { clearMessageErrors } from '../../reduxToolkit/messageSlice';
+import Theme from '../../components/theme/Theme';
 
 type LayoutProps = {
   children?: React.ReactNode;
@@ -20,8 +20,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <div className={s.layout}>
       <Header />
-      <div style={{ position: 'absolute', top: '160px',
-        left: 0, right: 0, bottom: 0, overflowY: 'scroll' }}>{children}</div>
+      <div className={s.content}>{children}</div>
 
       {showMessage &&
         createPortal(

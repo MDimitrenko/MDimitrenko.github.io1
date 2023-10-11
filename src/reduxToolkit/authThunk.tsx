@@ -11,10 +11,10 @@ import {
 } from './app.types';
 import { setAuth, setProfile } from '../reduxToolkit/initSlice';
 import { setMessageErrors } from '../reduxToolkit/messageSlice';
-import { getHeader } from 'src/util/function';
-import { clearOperations } from 'src/reduxToolkit/operationSlice';
-import { clearCategories } from 'src/reduxToolkit/categorySlice';
-import { clearFilter } from 'src/reduxToolkit/filterSlice';
+import { getHeader } from '../util/function';
+import { clearOperations } from '../reduxToolkit/operationSlice';
+import { clearCategories } from '../reduxToolkit/categorySlice';
+import { clearFilter } from '../reduxToolkit/filterSlice';
 
 interface MyKnownError {
   errorMessage: string;

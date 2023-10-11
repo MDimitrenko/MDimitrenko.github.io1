@@ -7,7 +7,8 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from '@reduxjs/toolkit';
 import { SignInBody } from '../../../reduxToolkit/app.types';
 import { fetchSignin, fetchSignup } from '../../../reduxToolkit/authThunk';
-import {useTranslation} from "react-i18next";
+import { useTranslation } from 'react-i18next';
+import { BasicButton } from '../../basicButton/BasicButton';
 
 interface LoginUserFormProps {
   registration: boolean;
@@ -49,7 +50,6 @@ export const LoginUserForm: FC<LoginUserFormProps> = ({ registration }) => {
     <>
       <form onSubmit={handleSubmit(clickSubmit)}>
         <div className="text-field">
-
           <label className="text-field__label">Email*</label>
           <input
             className="text-field__input"
@@ -101,9 +101,11 @@ export const LoginUserForm: FC<LoginUserFormProps> = ({ registration }) => {
             </>
           )}
 
-          <button type="submit" className="button-add">
-            {registration ? t`Registration` : t`Authorization`}
-          </button>
+          <BasicButton
+            isSubmit={true}
+            className="button-add"
+            text={registration ? t`Registration` : t`Authorization`}
+          />
         </div>
       </form>
     </>

@@ -7,8 +7,8 @@ import {
   setUploadPage,
   updateOperation,
 } from '../reduxToolkit/operationSlice';
-import { getHeader } from 'src/util/function';
-import { setMessageErrors } from 'src/reduxToolkit/messageSlice';
+import { getHeader } from '../util/function';
+import { setMessageErrors } from '../reduxToolkit/messageSlice';
 
 interface MyKnownError {
   errorMessage: string;

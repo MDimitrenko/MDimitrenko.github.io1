@@ -1,11 +1,10 @@
 import React, { FC } from 'react';
-import { Page } from 'src/components/Page';
+import { Page } from '../../components/Page';
 import { useTranslation } from 'react-i18next';
 import s from './Profile.sass';
-import СhangePasswordForm from 'src/components/Forms/ChangePasswordForm/СhangePasswordForm';
-import СhangeProfileForm from 'src/components/Forms/ChangeProfileForm/ChangeProfileForm';
-import { useSelector } from 'react-redux';
-import { RootState } from 'src/reduxToolkit/store';
+import СhangePasswordForm from '../../components/Forms/ChangePasswordForm/СhangePasswordForm';
+import СhangeProfileForm from '../../components/Forms/ChangeProfileForm/ChangeProfileForm';
+
 
 export const Profile: FC = () => {
   const { t } = useTranslation();

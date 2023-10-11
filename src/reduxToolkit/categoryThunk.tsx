@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ServerErrors, Category, NewCategory, CategoryList, UploadFile } from './app.types';
 import { addCategory, deleteCategory, setCategories, changeCategory } from '../reduxToolkit/categorySlice';
-import { getAuthHeader, getHeader } from 'src/util/function';
+import { getAuthHeader, getHeader } from '../util/function';
 
 // eslint-disable-next-line import/named
 import { Dispatch } from 'redux';
-import { setMessageErrors } from 'src/reduxToolkit/messageSlice';
+import { setMessageErrors } from '../reduxToolkit/messageSlice';
 
 interface MyKnownError {
   errorMessage: string;

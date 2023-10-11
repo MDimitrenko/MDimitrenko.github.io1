@@ -13,9 +13,9 @@ import { fetchAddCategoryWithImage, fetchChangeCategoryWithImage } from '../../.
 import { ThunkDispatch } from 'redux-thunk';
 // eslint-disable-next-line import/named
 import { AnyAction } from '@reduxjs/toolkit';
-import { BasicButton } from 'src/components/basicButton/BasicButton';
-import { useTheme } from 'src/components/theme/Theme';
-import { VerificationInput } from 'src/components/VerificationInput/VerificationInput';
+import { BasicButton } from '../../basicButton/BasicButton';
+import { useTheme } from '../../theme/Theme';
+import { VerificationInput } from '../../VerificationInput/VerificationInput';
 
 // eslint-disable-next-line react/prop-types
 export const AddCategoryForm: FC = () => {

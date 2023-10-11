@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import style from './MessageForm.module.sass';
 import { ServerErrors } from '../../../reduxToolkit/app.types';
 import { BasicButton } from '../../basicButton/BasicButton';
-import { Modal } from 'src/components/Modal/Modal';
+import { Modal } from '../../Modal/Modal';
 
 export type MessageFormProps = {
   caption?: string;

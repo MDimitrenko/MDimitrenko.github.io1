@@ -14,6 +14,7 @@ export const MessageFormInfo = {
   args: {
     caption: 'Редактирование профиля',
     text: 'Профиль успешно изменен',
+    messageType: 'Info',
     onClickEvent: () => console.log('dd'),
     // errors?: ServerErrors;
   },
@@ -22,6 +23,7 @@ export const MessageFormInfo = {
 export const MessageFormError = {
   args: {
     caption: 'Редактирование профиля',
+    messageType: 'Error',
     errors: {
       errors: [
         {

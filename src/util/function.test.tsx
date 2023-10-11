@@ -1,4 +1,4 @@
-import { getDateDDMMYYYY } from 'src/util/function';
+import { getDateDDMMYYYY } from '../util/function';
 
 test('current date in dd-MM-yyyy format', () => {
   const date = new Date();

@@ -7,11 +7,11 @@ import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from '@reduxjs/toolkit';
 import { fetchDeleteOperation } from '../../reduxToolkit/operationThunk';
 import { setEditOperation, setOpenAddOperation } from '../../reduxToolkit/operationSlice';
-import { RootState } from 'src/reduxToolkit/store';
-import { Image } from 'src/components/Image/Image';
-import { useTheme } from 'src/components/theme/Theme';
+import { RootState } from '../../reduxToolkit/store';
+import { Image } from '../Image/Image';
+import { useTheme } from '../theme/Theme';
 import style from './OperationItem.module.sass';
-import { getDateDDMMYYYY } from 'src/util/function';
+import { getDateDDMMYYYY } from '../../util/function';
 
 interface CartItemProps {
   operation: Operation;
